@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Antonio Garza</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+
+<!-- ─── NAV ──────────────────────────────────────────────────────────────── -->
+<nav>
+  <a class="nav-logo" href="index.html">AG</a>
+  <ul class="nav-links">
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="index.html#projects">Projects</a></li>
+    <li><a href="index.html#skills">Skills</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ─── BLOG HERO ─────────────────────────────────────────────────────────── -->
+<div class="blog-page-hero">
+  <div class="blog-page-eyebrow">Writing</div>
+  <h1 class="blog-page-title">Thoughts on <em>Engineering</em></h1>
+  <p class="blog-page-sub">Writing on React, TypeScript, AI Engineering, enterprise architecture, and everything in between. Published on Dev.to, Medium, and LinkedIn.</p>
+</div>
+
+<!-- ─── FULL BLOG GRID ────────────────────────────────────────────────────── -->
+<div id="blog-main">
+  <div class="blog-grid" id="blog-grid-full"><!-- rendered by blog.js --></div>
+</div>
+
+<footer>
+  <p>© 2026 Antonio Garza</p>
+  <p>McAllen, TX · Open to Remote &amp; Relocation</p>
+</footer>
+
+<!-- ─── SIDE PANEL ────────────────────────────────────────────────────────── -->
+<button id="chat-fab" aria-label="Open panel">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+</button>
+
+<div id="chat-window" role="dialog">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <div class="chat-avatar">AG</div>
+      <div class="chat-header-info">
+        <div class="chat-header-name">Antonio Garza</div>
+        <div class="chat-header-status">● Available · Open to roles</div>
+      </div>
+    </div>
+    <button class="chat-close" id="chat-close-btn">&#10005;</button>
+  </div>
+  <a href="AntonioGarza_Resume.pdf" download class="resume-download-btn">↓ Download Résumé</a>
+  <div class="panel-tabs">
+    <button class="panel-tab active" data-tab="chat">AI Chat</button>
+    <button class="panel-tab" data-tab="contact">Contact</button>
+  </div>
+  <div class="panel-view active" id="view-chat">
+    <div class="chat-suggestions" id="chat-suggestions">
+      <button class="suggestion-chip">What's his stack?</button>
+      <button class="suggestion-chip">Tell me about IntegroPOS</button>
+      <button class="suggestion-chip">Is he available?</button>
+      <button class="suggestion-chip">What roles fit him?</button>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="msg msg-ai">
+        <div class="msg-icon">AG</div>
+        <div class="msg-bubble">Hey! I'm an AI trained on Antonio's background. Ask me anything — his experience, projects, tech stack, or whether he'd be a fit for your team.</div>
+      </div>
+    </div>
+    <div class="chat-input-row">
+      <textarea id="chat-input" placeholder="Ask anything about Antonio…" rows="1"></textarea>
+      <button id="chat-send">Send ↗</button>
+    </div>
+  </div>
+  <div class="panel-view" id="view-contact">
+    <div class="contact-form" id="contact-form-body">
+      <p class="form-note">Send Antonio a direct message — he typically responds within 24 hours.</p>
+      <div class="form-group">
+        <label class="form-label" for="cf-name">Your Name</label>
+        <input class="form-input" id="cf-name" type="text" placeholder="Jane Smith" autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="cf-email">Your Email</label>
+        <input class="form-input" id="cf-email" type="email" placeholder="jane@company.com" autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="cf-subject">Subject</label>
+        <input class="form-input" id="cf-subject" type="text" placeholder="Opportunity / Collaboration / etc." />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="cf-message">Message</label>
+        <textarea class="form-textarea" id="cf-message" placeholder="Tell Antonio about the role or project…"></textarea>
+      </div>
+      <button class="form-submit" id="cf-submit">Send Message ↗</button>
+    </div>
+    <div class="form-success" id="form-success">
+      <div class="form-success-icon">✓</div>
+      <h3>Message sent!</h3>
+      <p>Thanks for reaching out. Antonio will get back to you at your email address shortly.</p>
+      <button class="form-submit" id="cf-reset" style="margin-top:8px">Send another</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SCRIPTS ───────────────────────────────────────────────────────────── -->
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => ro.observe(el));
+</script>
+<script src="scripts/posts.js"></script>
+<script src="scripts/blog.js"></script>
+<script src="scripts/panel.js"></script>
+
+</body>
+</html>
