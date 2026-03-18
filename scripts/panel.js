@@ -41,8 +41,10 @@ function closePanel() {
 fab.onclick     = () => win.classList.contains('open') ? closePanel() : openPanel();
 closeBtn.onclick = closePanel;
 
-// Auto-open on load
-window.addEventListener('DOMContentLoaded', () => openPanel());
+// Auto-open on load (skip on small / phone screens)
+window.addEventListener('DOMContentLoaded', () => {
+  if (window.innerWidth > 768) openPanel();
+});
 
 // ─── Tab switching ────────────────────────────────────────────────────────────
 document.querySelectorAll('.panel-tab').forEach(tab => {
