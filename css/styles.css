@@ -52,6 +52,7 @@ footer p{font-size:11px;color:var(--muted)}
 h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(52px,6vw,88px);line-height:.95;letter-spacing:-.02em;margin-bottom:8px}
 h1 .serif{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--accent)}
 .hero-subtitle{font-family:'Syne',sans-serif;font-size:clamp(16px,2vw,22px);font-weight:600;color:var(--muted);margin-bottom:32px}
+.hero-subtitle-qualifier{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:.85em;color:var(--muted);opacity:.6;letter-spacing:.01em}
 .hero-desc{color:#9a9690;font-size:13px;line-height:1.8;max-width:480px;margin-bottom:44px}
 .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
 .hero-left>*{opacity:0;transform:translateY(20px);animation:fadeUp .7s ease forwards}
